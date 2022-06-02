@@ -21,6 +21,7 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+	"github.com/ttacon/chalk"
 
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
@@ -40,22 +41,19 @@ var (
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "GeneMaster",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
+	Short: "A gene to rule them all.",
+	Long: `Daniel Rivas <danielrivasmd@gmail.com>
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	//	Run: func(cmd *cobra.Command, args []string) { },
+	` + chalk.Green.Color("gene") + chalk.Magenta.Color(` is a robot for automation of
+	gene operations.
+
+	`) + chalk.Green.Color("gene") + ` creates a convenient command line interface
+	to handle genomic files.
+	`,
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	if ε := rootCmd.Execute(); ε != nil {
 		fmt.Println(ε)
@@ -68,7 +66,7 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	// flags
+	// persistent flags
 	rootCmd.PersistentFlags().StringVarP(&inDir, "inDir", "I", ".", "Directory where input files are located")
 	rootCmd.PersistentFlags().StringVarP(&outDir, "outDir", "O", ".", "Output directory. Creates if not exitst")
 }
