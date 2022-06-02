@@ -91,7 +91,7 @@ func bedRead(bedFile string) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // read bed file & write
-func bedReadReg(bedFile string) {
+func bedReadReg(bedFile string, header []string) {
 
 	// open an input file, exit on error
 	inputFile, ε := os.Open(bedFile)
@@ -103,6 +103,9 @@ func bedReadReg(bedFile string) {
 	if fileExist(outDir + "/" + outFile) {
 		os.Remove(outDir + "/" + outFile)
 	}
+
+	// write header
+	bedWrite(outDir+"/"+outFile, header)
 
 	// scanner.Scan() advances to the next token returning false if an error was encountered
 	scanner := bufio.NewScanner(inputFile)

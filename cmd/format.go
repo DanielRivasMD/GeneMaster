@@ -28,7 +28,8 @@ import (
 const ρε = `[,|*_]` // backticks are used here to contain the expression
 
 var (
-	ρ = regexp.MustCompile(ρε) // declare regex
+	ρ      = regexp.MustCompile(ρε) // declare regex
+	header = []string{"chr", "mutStart", "mutEnd", "wild", "alternative", "CAtype", "mutation", "patientID", "motifStart", "motifEnd", "motifID", "precisionMxID", "scoreFIMO", "pValue", "strandSense"}
 )
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,7 +49,7 @@ to quickly create a Cobra application.`,
 
 	Run: func(κ *cobra.Command, args []string) {
 		// execute logic
-		bedReadReg(bedFile)
+		bedReadReg(bedFile, header)
 	},
 }
 
