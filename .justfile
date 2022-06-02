@@ -51,3 +51,16 @@ install:
   mv -v "${HOME}/.go/bin/GeneMaster" "${HOME}/.go/bin/gene"
 
 ####################################################################################################
+
+# deliver gene binary
+hermesUppmax:
+  #!/bin/bash
+  set -euo pipefail
+
+  # declarations
+  source .just.sh
+
+  echo "Deploying to Uppmax..."
+  rsync -azvhP "${gene}/excalibur/gene" "${uppmaxID}:${uppmaxBin}"
+
+####################################################################################################
