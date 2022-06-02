@@ -17,7 +17,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 package cmd
 
 import (
-	"fmt"
 	"regexp"
 
 	"github.com/spf13/cobra"
@@ -26,8 +25,10 @@ import (
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // declarations
+const ρε = `[,|*_]` // backticks are used here to contain the expression
+
 var (
-	ρ = regexp.MustCompile(`[,|*_]`) // backticks are used here to contain the expression
+	ρ = regexp.MustCompile(ρε) // declare regex
 )
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -45,10 +46,9 @@ to quickly create a Cobra application.`,
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("format called")
-
-		bedRead(bedFile)
+	Run: func(κ *cobra.Command, args []string) {
+		// execute logic
+		bedReadReg(bedFile)
 	},
 }
 

@@ -20,6 +20,7 @@ import (
 	"bufio"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -63,9 +64,9 @@ func init() {
 func bedRead(bedFile string) {
 
 	// open an input file, exit on error
-	inputFile, readErr := os.Open(bedFile)
-	if readErr != nil {
-		log.Fatal("Error opening input file : ", readErr)
+	inputFile, ε := os.Open(bedFile)
+	if ε != nil {
+		log.Fatal("Error opening input file : ", ε)
 	}
 
 	// check whether file exists to avoid appending
@@ -123,32 +124,33 @@ func bedReadReg(bedFile string) {
 func bedWrite(outFile string, records []string) {
 
 	// declare io
-	f, err := os.OpenFile(outFile, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0666)
+	ƒ, ε := os.OpenFile(outFile, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0666)
 
-	if err != nil {
-		panic(err)
+	if ε != nil {
+		panic(ε)
 	}
 
-	defer f.Close()
+	defer ƒ.Close()
 
 	// declare writer
-	w := bufio.NewWriter(f)
+	ϖ := bufio.NewWriter(ƒ)
 
 	// writing
-	for i := 0; i < len(records)-1; i++ {
-		_, err = w.WriteString(records[i] + ",")
-		if err != nil {
-			panic(err)
+	for ι := 0; ι < len(records)-1; ι++ { // iterate on records
+		_, ε = ϖ.WriteString(records[ι] + ",")
+		if ε != nil {
+			panic(ε)
 		}
 	}
 
-	_, err = w.WriteString(records[len(records)-1] + "\n")
-	if err != nil {
-		panic(err)
+	// write last record
+	_, ε = ϖ.WriteString(records[len(records)-1] + "\n")
+	if ε != nil {
+		panic(ε)
 	}
 
 	// flush writer
-	w.Flush()
+	ϖ.Flush()
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

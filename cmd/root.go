@@ -57,8 +57,8 @@ to quickly create a Cobra application.`,
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
-	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
+	if ε := rootCmd.Execute(); ε != nil {
+		fmt.Println(ε)
 		os.Exit(1)
 	}
 }
@@ -82,9 +82,9 @@ func initConfig() {
 		viper.SetConfigFile(cfgFile)
 	} else {
 		// Find home directory.
-		home, err := homedir.Dir()
-		if err != nil {
-			fmt.Println(err)
+		home, ε := homedir.Dir()
+		if ε != nil {
+			fmt.Println(ε)
 			os.Exit(1)
 		}
 
@@ -96,7 +96,7 @@ func initConfig() {
 	viper.AutomaticEnv() // read in environment variables that match
 
 	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err == nil {
+	if ε := viper.ReadInConfig(); ε == nil {
 		fmt.Println("Using config file:", viper.ConfigFileUsed())
 	}
 }
@@ -104,10 +104,10 @@ func initConfig() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // fileExist checks if a file exists and is not a directory before
-// try using it to prevent further errors
+// try using it to prevent further εors
 func fileExist(filename string) bool {
-	info, err := os.Stat(filename)
-	if os.IsNotExist(err) {
+	info, ε := os.Stat(filename)
+	if os.IsNotExist(ε) {
 		return false
 	}
 	return !info.IsDir()
