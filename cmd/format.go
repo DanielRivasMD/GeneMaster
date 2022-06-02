@@ -26,7 +26,7 @@ import (
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // declarations
-const ρε = `[,|*_]` // backticks are used here to contain the expression
+const ρε = `[\t,|*_]` // backticks are used here to contain the expression
 
 var (
 	ρ      = regexp.MustCompile(ρε) // declare regex
