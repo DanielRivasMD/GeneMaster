@@ -18,9 +18,19 @@ package cmd
 
 import (
 	"fmt"
+	"regexp"
 
 	"github.com/spf13/cobra"
 )
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// declarations
+var (
+	ρ = regexp.MustCompile(`[,|*_]`) // backticks are used here to contain the expression
+)
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // formatCmd represents the format command
 var formatCmd = &cobra.Command{
@@ -32,21 +42,23 @@ and usage of using your command. For example:
 Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("format called")
+
+		bedRead(bedFile)
 	},
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func init() {
 	bedCmd.AddCommand(formatCmd)
 
-	// Here you will define your flags and configuration settings.
+	// flags
 
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// formatCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// formatCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
