@@ -17,10 +17,22 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 package cmd
 
 import (
-	"fmt"
+	"bufio"
+	"log"
+	"os"
 
 	"github.com/spf13/cobra"
 )
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// declarations
+var (
+	bedFile string
+	outFile string
+)
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // bedCmd represents the bed command
 var bedCmd = &cobra.Command{
@@ -32,27 +44,24 @@ and usage of using your command. For example:
 Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("bed called")
-	},
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 func init() {
 	rootCmd.AddCommand(bedCmd)
 
-	// Here you will define your flags and configuration settings.
+	// flags
+	bedCmd.PersistentFlags().StringVarP(&bedFile, "bed", "b", "", "Bed file")
+	bedCmd.PersistentFlags().StringVarP(&outFile, "outfile", "o", "", "Out file. If empty it will be defined by input")
+
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// bedCmd.PersistentFlags().String("foo", "", "A help for foo")
 // read bed file & write
 func bedRead(bedFile string) {
 
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// bedCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	// open an input file, exit on error
 	inputFile, readErr := os.Open(bedFile)
 	if readErr != nil {
