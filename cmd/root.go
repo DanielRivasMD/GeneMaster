@@ -18,14 +18,24 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
 	"os"
+
+	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
 )
 
-var cfgFile string
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// declarations
+var (
+	cfgFile string
+	inDir   string
+	outDir  string
+)
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -42,6 +52,8 @@ to quickly create a Cobra application.`,
 	//	Run: func(cmd *cobra.Command, args []string) { },
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
@@ -51,19 +63,17 @@ func Execute() {
 	}
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
-
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.GeneMaster.yaml)")
-
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// flags
+	rootCmd.PersistentFlags().StringVarP(&inDir, "inDir", "I", ".", "Directory where input files are located")
+	rootCmd.PersistentFlags().StringVarP(&outDir, "outDir", "O", ".", "Output directory. Creates if not exitst")
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
@@ -90,3 +100,5 @@ func initConfig() {
 		fmt.Println("Using config file:", viper.ConfigFileUsed())
 	}
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
