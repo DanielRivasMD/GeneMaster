@@ -78,6 +78,37 @@ func bedRead(bedFile string) {
 
 	for scanner.Scan() {
 
+		// tab separated records
+		records := strings.Split(scanner.Text(), "\t")
+
+		// write
+		bedWrite(outDir+"/"+outFile, records)
+
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// read bed file & write
+func bedReadReg(bedFile string) {
+
+	// open an input file, exit on error
+	inputFile, ε := os.Open(bedFile)
+	if ε != nil {
+		log.Fatal("Error opening input file : ", ε)
+	}
+
+	// check whether file exists to avoid appending
+	if fileExist(outDir + "/" + outFile) {
+		os.Remove(outDir + "/" + outFile)
+	}
+
+	// scanner.Scan() advances to the next token returning false if an error was encountered
+	scanner := bufio.NewScanner(inputFile)
+
+	for scanner.Scan() {
+
+		// regex separated
 		records := ρ.Split(scanner.Text(), -1) // second arg -1 means no limits for the number of substrings
 
 		// write
