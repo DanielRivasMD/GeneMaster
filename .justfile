@@ -48,5 +48,6 @@ install:
 
   echo "Install..."
   go install
+  mv -v "${HOME}/.go/bin/GeneMaster" "${HOME}/.go/bin/gene"
 
 ####################################################################################################
