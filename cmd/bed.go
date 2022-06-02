@@ -18,6 +18,7 @@ package cmd
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"os"
 	"strings"
@@ -31,6 +32,7 @@ import (
 var (
 	bedFile string
 	outFile string
+	altFile string
 )
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -54,7 +56,8 @@ func init() {
 
 	// flags
 	bedCmd.PersistentFlags().StringVarP(&bedFile, "bed", "b", "", "Bed file")
-	bedCmd.PersistentFlags().StringVarP(&outFile, "outfile", "o", "", "Out file. If empty it will be defined by input")
+	bedCmd.PersistentFlags().StringVarP(&outFile, "outfile", "o", "", "Out file")
+	bedCmd.PersistentFlags().StringVarP(&outFile, "altfile", "a", "", "Alternative file")
 
 }
 
@@ -116,7 +119,14 @@ func bedReadReg(bedFile string, header []string) {
 		records := ρ.Split(scanner.Text(), -1) // second arg -1 means no limits for the number of substrings
 
 		// write
-		bedWrite(outDir+"/"+outFile, records)
+		switch {
+		case len(records) > len(header):
+			bedWrite(outDir+"/"+altFile, records)
+		case len(records) == len(header):
+			bedWrite(outDir+"/"+outFile, records)
+		case len(records) < len(header):
+			fmt.Println("Records might be absent")
+		}
 
 	}
 }
