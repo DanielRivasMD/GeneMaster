@@ -42,11 +42,39 @@ func init() {
 
 	// Here you will define your flags and configuration settings.
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
 	// bedCmd.PersistentFlags().String("foo", "", "A help for foo")
+// read bed file & write
+func bedRead(bedFile string) {
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// bedCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// open an input file, exit on error
+	inputFile, readErr := os.Open(bedFile)
+	if readErr != nil {
+		log.Fatal("Error opening input file : ", readErr)
+	}
+
+	// check whether file exists to avoid appending
+	if fileExist(outDir + "/" + outFile) {
+		os.Remove(outDir + "/" + outFile)
+	}
+
+	// scanner.Scan() advances to the next token returning false if an error was encountered
+	scanner := bufio.NewScanner(inputFile)
+
+	for scanner.Scan() {
+
+		records := ρ.Split(scanner.Text(), -1) // second arg -1 means no limits for the number of substrings
+
+		// write
+		bedWrite(outDir+"/"+outFile, records)
+
+	}
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
