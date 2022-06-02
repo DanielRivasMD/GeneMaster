@@ -78,3 +78,37 @@ func bedRead(bedFile string) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// write bed file
+func bedWrite(outFile string, records []string) {
+
+	// declare io
+	f, err := os.OpenFile(outFile, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0666)
+
+	if err != nil {
+		panic(err)
+	}
+
+	defer f.Close()
+
+	// declare writer
+	w := bufio.NewWriter(f)
+
+	// writing
+	for i := 0; i < len(records)-1; i++ {
+		_, err = w.WriteString(records[i] + ",")
+		if err != nil {
+			panic(err)
+		}
+	}
+
+	_, err = w.WriteString(records[len(records)-1] + "\n")
+	if err != nil {
+		panic(err)
+	}
+
+	// flush writer
+	w.Flush()
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
