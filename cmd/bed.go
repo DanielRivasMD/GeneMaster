@@ -53,7 +53,7 @@ func init() {
 	// flags
 	bedCmd.PersistentFlags().StringVarP(&bedFile, "bed", "b", "", "Bed file")
 	bedCmd.PersistentFlags().StringVarP(&outFile, "outfile", "o", "", "Out file")
-	bedCmd.PersistentFlags().StringVarP(&outFile, "altfile", "a", "", "Alternative file")
+	bedCmd.PersistentFlags().StringVarP(&altFile, "altfile", "a", "", "Alternative file")
 
 }
 
@@ -130,10 +130,10 @@ func bedReadReg(bedFile string, header []string) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // write bed file
-func bedWrite(outFile string, records []string) {
+func bedWrite(file string, records []string) {
 
 	// declare io
-	ƒ, ε := os.OpenFile(outFile, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0666)
+	ƒ, ε := os.OpenFile(file, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0666)
 
 	if ε != nil {
 		panic(ε)
