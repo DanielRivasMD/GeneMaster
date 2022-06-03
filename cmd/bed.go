@@ -63,7 +63,7 @@ func init() {
 func bedRead(bedFile string) {
 
 	// open an input file, exit on error
-	inputFile, ε := os.Open(bedFile)
+	ƒ, ε := os.Open(bedFile)
 	if ε != nil {
 		log.Fatal("Error opening input file : ", ε)
 	}
@@ -74,7 +74,7 @@ func bedRead(bedFile string) {
 	}
 
 	// scanner.Scan() advances to the next token returning false if an error was encountered
-	scanner := bufio.NewScanner(inputFile)
+	scanner := bufio.NewScanner(ƒ)
 
 	for scanner.Scan() {
 
@@ -93,7 +93,7 @@ func bedRead(bedFile string) {
 func bedReadReg(bedFile string, header []string) {
 
 	// open an input file, exit on error
-	inputFile, ε := os.Open(bedFile)
+	ƒ, ε := os.Open(bedFile)
 	if ε != nil {
 		log.Fatal("Error opening input file : ", ε)
 	}
@@ -107,7 +107,7 @@ func bedReadReg(bedFile string, header []string) {
 	bedWrite(outDir+"/"+outFile, header)
 
 	// scanner.Scan() advances to the next token returning false if an error was encountered
-	scanner := bufio.NewScanner(inputFile)
+	scanner := bufio.NewScanner(ƒ)
 
 	for scanner.Scan() {
 
