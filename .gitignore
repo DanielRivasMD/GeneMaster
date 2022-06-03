@@ -3,3 +3,9 @@ deprecated/
 
 # Go executables
 excalibur
+
+# data
+data/
+
+# manifest
+Manifest.toml
